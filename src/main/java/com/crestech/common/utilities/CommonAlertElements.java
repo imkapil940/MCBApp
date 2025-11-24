@@ -8,145 +8,148 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.annotation.values.ElementDescription;
 
+import org.openqa.selenium.WebElement;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class CommonAlertElements {
 	
-	public AppiumDriver<RemoteWebElement> driver1;
-	public CommonAlertElements(AppiumDriver<RemoteWebElement> driver) {
+	@SuppressWarnings("rawtypes")
+	public AppiumDriver driver1;
+	@SuppressWarnings("rawtypes")
+	public CommonAlertElements(AppiumDriver driver) {
 		this.driver1 = driver; 
-		PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
+	//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 	}
 
-	public AppiumDriver<RemoteWebElement> driver;
+	@SuppressWarnings("rawtypes")
+	public AppiumDriver driver;
 	@ElementDescription(value = "Toast Message Element")
 	@AndroidFindBy(xpath = "//android.widget.Toast")
-	private MobileElement ToastMessageElement;
+	private WebElement ToastMessageElement;
 
 	@ElementDescription(value = "Toast Message Element List")
 	@AndroidFindBy(xpath = "//android.widget.Toast")
-	private List<MobileElement> ToastMessageElementList;
+	private List<WebElement> ToastMessageElementList;
 
 	@ElementDescription(value = "Toggle List")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/switch_widget']")
-	private List<MobileElement> toggleList;
+	private List<WebElement> toggleList;
 
 	@ElementDescription(value = "Title Alert")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/alertTitle']")
-	private MobileElement TitleAlert;
+	private WebElement TitleAlert;
 
 	@ElementDescription(value = "Message Alert")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
-	private MobileElement MessageAlert;
+	private WebElement MessageAlert;
 
 	@ElementDescription(value = "Ok Alert")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='OK']")
-	private MobileElement OKAlert;
+	private WebElement OKAlert;
 
 	@ElementDescription(value = "Cancel Alert")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='CANCEL']")
-	private MobileElement CancelAlert;
+	private WebElement CancelAlert;
 
 	@ElementDescription(value = "AllOW Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='AllOW']")
-	private MobileElement AllOWAlert;
+	private WebElement AllOWAlert;
 
 	@ElementDescription(value = "DENY Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DENY']")
-	private MobileElement DENYAlert;
+	private WebElement DENYAlert;
 
 	@ElementDescription(value = "DENY ANYWAY Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DENY ANYWAY']")
-	private MobileElement DENYANYWAYAlert;
+	private WebElement DENYANYWAYAlert;
 
 	@ElementDescription(value = "Not Responding Title")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/alertTitle']")
-	private MobileElement NotRespondingTitle;
+	private WebElement NotRespondingTitle;
 
 	@ElementDescription(value = "Not Responding Close")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/aerr_close']")
-	private MobileElement NotRespondingClose;
+	private WebElement NotRespondingClose;
 
 	@ElementDescription(value = "Not Responding Wait")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/aerr_wait']")
-	private MobileElement NotRespondingWait;
+	private WebElement NotRespondingWait;
 
 	@ElementDescription(value = "Permission Aler Message")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.android.permissioncontroller:id/permissions_message']")
-	private MobileElement PermissionAlertMessage;
+	private WebElement PermissionAlertMessage;
 
 	@ElementDescription(value = "Permission Alert Cancel")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.android.permissioncontroller:id/cancel_button']")
-	private MobileElement PermissionAlertCancel;
+	private WebElement PermissionAlertCancel;
 
 	@ElementDescription(value = "Permission Alert Continue")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.android.permissioncontroller:id/continue_button']")
-	private MobileElement PermissionAlertContinue;
+	private WebElement PermissionAlertContinue;
 
-	public MobileElement getToastMessageElement() {
+	public WebElement getToastMessageElement() {
 		return ToastMessageElement;
 	}
 
-	public List<MobileElement> getToastMessageElementList() {
+	public List<WebElement> getToastMessageElementList() {
 		return ToastMessageElementList;
 	}
 
-	public List<MobileElement> toggleList() {
+	public List<WebElement> toggleList() {
 		return toggleList;
 	}
 
-	public MobileElement PermissionAlertContinueButton() {
+	public WebElement PermissionAlertContinueButton() {
 		return PermissionAlertContinue;
 	}
 
-	public MobileElement PermissionAlertCancelButton() {
+	public WebElement PermissionAlertCancelButton() {
 		return PermissionAlertCancel;
 	}
 
-	public MobileElement getPermissionMessage() {
+	public WebElement getPermissionMessage() {
 		return PermissionAlertMessage;
 	}
 
-	public MobileElement NotRespondingWaitButton() {
+	public WebElement NotRespondingWaitButton() {
 		return NotRespondingWait;
 	}
 
-	public MobileElement NotRespondingCloseButton() {
+	public WebElement NotRespondingCloseButton() {
 		return NotRespondingClose;
 	}
 
-	public MobileElement getNotRespondingTitle() {
+	public WebElement getNotRespondingTitle() {
 		return NotRespondingTitle;
 	}
 
-	public MobileElement DenyAnywayButton() {
+	public WebElement DenyAnywayButton() {
 		return DENYANYWAYAlert;
 	}
 
-	public MobileElement DenyButton() {
+	public WebElement DenyButton() {
 		return DENYAlert;
 	}
 
-	public MobileElement OkButton() {
+	public WebElement OkButton() {
 		return OKAlert;
 	}
 
-	public MobileElement CancelButton() {
+	public WebElement CancelButton() {
 		return CancelAlert;
 	}
 
-	public MobileElement AllowButton() {
+	public WebElement AllowButton() {
 		return AllOWAlert;
 	}
 
-	public MobileElement getalertMessage() {
+	public WebElement getalertMessage() {
 		return MessageAlert;
 	}
 
-	public MobileElement getalertTitle() {
+	public WebElement getalertTitle() {
 		return TitleAlert;
 	}
 	/**
@@ -155,25 +158,25 @@ public class CommonAlertElements {
 	
 	@ElementDescription(value = "Message")
 	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView[2]")
-	private MobileElement Message;
+	private WebElement Message;
 	
 	
 	@ElementDescription(value = "Quit Button")
 	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button")
-	private MobileElement QuitButton;
+	private WebElement QuitButton;
 	
 	@ElementDescription(value = "Title")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Alert']")
-	private MobileElement Title;
+	private WebElement Title;
 	
-	public MobileElement getMessage() {
+	public WebElement getMessage() {
 		return Message;
 	}
 	
-	public MobileElement getTitle() {
+	public WebElement getTitle() {
 		return Title;
 	}
-	public MobileElement quitButton() {
+	public WebElement quitButton() {
 		return QuitButton;
 	}
 	/**
@@ -186,19 +189,19 @@ public class CommonAlertElements {
 	 */
 	   @ElementDescription(value = "Alert header")
 		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'txt_header')]")
-		private MobileElement headerMessage;
+		private WebElement headerMessage;
 		
 		
 		@ElementDescription(value = "Swipe Button")
 		@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.view.View")
-		private MobileElement swipeButton;
+		private WebElement swipeButton;
 		
 		
-		public MobileElement headerMessage() {
+		public WebElement headerMessage() {
 			return headerMessage;
 		}
 		
-		public MobileElement swipeButton() {
+		public WebElement swipeButton() {
 			return swipeButton;
 		}
 		
@@ -211,19 +214,19 @@ public class CommonAlertElements {
 		 */
 		   @ElementDescription(value = "Alert Fingerprint Message")
 			@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/desc')]")
-			private MobileElement headerFingerprintMessage;
+			private WebElement headerFingerprintMessage;
 			
 			
 			@ElementDescription(value = "Close Button")
 			@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='CLOSE']")
-			private MobileElement closeButton;
+			private WebElement closeButton;
 			
 			
-			public MobileElement headerFingerprintMessage() {
+			public WebElement headerFingerprintMessage() {
 					return headerFingerprintMessage;
 			}
 			
-			public MobileElement closeButton() {
+			public WebElement closeButton() {
 				 return closeButton;
 			}
 			
@@ -236,13 +239,13 @@ public class CommonAlertElements {
 			 */
 			   @ElementDescription(value = "Alert recordingt Message")
 				@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/title')]")
-				private MobileElement headerRecordingMessage;
+				private WebElement headerRecordingMessage;
 			
 				
 			   //android.widget.ImageView[@content-desc="CLOSE"]
 			   // closed button is same as previous popup
 				
-				public MobileElement headerRecordingMessage() {
+				public WebElement headerRecordingMessage() {
 					return headerRecordingMessage;
 				}
 				

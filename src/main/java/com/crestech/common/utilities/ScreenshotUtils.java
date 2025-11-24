@@ -13,7 +13,6 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import com.crestech.appium.utils.CommonAppiumTest;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 
 public class ScreenshotUtils {
 
@@ -24,7 +23,8 @@ public class ScreenshotUtils {
 	 * @return Image Path
 	 * @throws Exception 
 	 */
-	public static String captureScreenShot(String methodName, AppiumDriver<MobileElement> driver) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public static String captureScreenShot(String methodName, AppiumDriver driver) throws Exception {
 
 		try {
 			String folder_name = "FailedTestsScreenshots";
@@ -47,7 +47,8 @@ public class ScreenshotUtils {
 	 * @return Base64
 	 * @throws Exception
 	 */
-	public static String base64conversion(AppiumDriver<MobileElement> driver) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public static String base64conversion(AppiumDriver driver) throws Exception {
 		try {
 			TakesScreenshot newScreen = (TakesScreenshot) driver;
 			String scnShot = newScreen.getScreenshotAs(OutputType.BASE64);
@@ -74,7 +75,8 @@ public class ScreenshotUtils {
 		}
 	}
 	
-	public static String getScreenshot(AppiumDriver<RemoteWebElement> appiumDriver) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public static String getScreenshot(AppiumDriver appiumDriver) throws Exception {
 		try {
 			TakesScreenshot ts = (TakesScreenshot) appiumDriver;
 			File src = ts.getScreenshotAs(OutputType.FILE);

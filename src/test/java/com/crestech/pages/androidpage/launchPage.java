@@ -8,8 +8,8 @@ import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.HandleException;
+import org.openqa.selenium.WebElement;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
@@ -20,11 +20,13 @@ import io.qameta.allure.Step;
  */
 public class launchPage extends CommonAppiumTest{
 	
-	public AppiumDriver<RemoteWebElement> driver = null;
+	@SuppressWarnings("rawtypes")
+	public AppiumDriver driver = null;
 	HandleException obj_handleexception = null;
 	//preloginPage preloginpg=null;
 	
-	public launchPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public launchPage(AppiumDriver driver) throws Exception {
 		super(driver);
 		try {
 			this.driver = driver;
@@ -41,172 +43,109 @@ public class launchPage extends CommonAppiumTest{
 	//object
 	@ElementDescription(value = "Quit Button.")
 	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button")
-	private MobileElement quitBtn;
+	private WebElement quitBtn;
 	
 	@ElementDescription(value = "PreLogin Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='PRE LOGIN']")
-	private MobileElement PreLoginBtn;
+	private WebElement PreLoginBtn;
 	
 	@ElementDescription(value = "More Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='More']")
-	private MobileElement MoreButton;
+	private WebElement MoreButton;
 	
 	@ElementDescription(value = "LOG IN Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG IN']")
-	private MobileElement loginButton;
+	private WebElement loginButton;
 
 	@ElementDescription(value = "User ID EditTexT")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
-	private MobileElement userIdEditText;
+	private WebElement userIdEditText;
 	
 	
 	@ElementDescription(value = "Log In Button prelogin page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log In']")
-	private MobileElement LogInButton_preloginpage;
+	private WebElement LogInButton_preloginpage;
 	
 	@ElementDescription(value = "Error Messge Element")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
-	private MobileElement ErrorMessgeElement;
+	private WebElement ErrorMessgeElement;
 	
 	@ElementDescription(value = "DigibankAlertHeaderElement")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='digibank Alert']")
-	private MobileElement DigibankAlertHeaderElement;
+	private WebElement DigibankAlertHeaderElement;
 	
 	@ElementDescription(value = "DigitalTokenUnderMaintenanceMessage")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/login_kill_switch_error_message')]")
-	private MobileElement DigitalTokenUnderMaintenanceMessage;
+	private WebElement DigitalTokenUnderMaintenanceMessage;
 	
 	@ElementDescription(value = "DigitalTokenUnderMaintenanceMessageHeader")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Digital token under maintenance']")
-	private MobileElement DigitalTokenUnderMaintenanceMessageHeader;
+	private WebElement DigitalTokenUnderMaintenanceMessageHeader;
 
 	@ElementDescription(value = "Progress Bar")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/progress_bar_message')]")
-	private MobileElement progress_bar;
+	private WebElement progress_bar;
 	
 	@ElementDescription(value = "Progress Bar")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/progress_bar')]")
-	private MobileElement progress_bar_imageview;
+	private WebElement progress_bar_imageview;
 	
 	@ElementDescription(value = "Authenticating Bar")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Authenticating...']")
-	private MobileElement Authenticating_Bar;
+	private WebElement Authenticating_Bar;
 	
 	@ElementDescription(value = "AlertTitle")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_alert_server_title')]")
-	private MobileElement AlertTitle;
+	private WebElement AlertTitle;
 	
 	@ElementDescription(value = "AlertBodyMessage")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_alert_body')]")
-	private MobileElement AlertBodyMessage;
+	private WebElement AlertBodyMessage;
 	
-	public MobileElement AlertTitle(){
+	public WebElement AlertTitle(){
 		return AlertTitle;
 	}
-	public MobileElement AlertBodyMessage(){
+	public WebElement AlertBodyMessage(){
 		return AlertBodyMessage;
 	}
 	
 	
-	public MobileElement DigitalTokenUnderMaintenanceMessage(){
+	public WebElement DigitalTokenUnderMaintenanceMessage(){
 		return DigitalTokenUnderMaintenanceMessage;
 	}
-	public MobileElement DigitalTokenUnderMaintenanceMessageHeader(){
+	public WebElement DigitalTokenUnderMaintenanceMessageHeader(){
 		return DigitalTokenUnderMaintenanceMessageHeader;
 	}
-	public MobileElement Authenticating_Bar() { 
+	public WebElement Authenticating_Bar() { 
 		return Authenticating_Bar;
 	}
 	
-	public MobileElement progress_bar_imageview() { 
+	public WebElement progress_bar_imageview() { 
 		return progress_bar_imageview;
 	}
 	
-	public MobileElement progress_bar() { 
+	public WebElement progress_bar() { 
 		return progress_bar;
 	}
 	
-	public MobileElement DigibankAlertHeaderElement() { 
+	public WebElement DigibankAlertHeaderElement() { 
 		return DigibankAlertHeaderElement;
 	}
 	
-	public MobileElement ErrorMessgeElement() { 
+	public WebElement ErrorMessgeElement() { 
 		return ErrorMessgeElement;
 	}
 	
-	public MobileElement quitBtn() { 
+	public WebElement quitBtn() { 
 		return quitBtn;
 	}
-	public MobileElement loginButton() { 
+	public WebElement loginButton() { 
 		return loginButton;
 	}
 
 	
-	@Step("Handling Of QUIT Button.")
-	public void handlingQuitButton() throws Exception {
-		try {
-			wait.ImplicitlyWait(70);
-			
-			if (isElementVisible2(quitBtn)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				driver.closeApp();
-				relaunchingDBS();
-				wait.fluentWaitForElement(loginButton); 
-			}
-			wait.ImplicitlyWait(15);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Quit Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Quit Button ", e);
-		}
-	}
+
 	
-
-	@Step("Relaunching POSB application")
-	public void relaunchingPOSB() throws Exception {
-		try {
-			relanchApplication(CommonTestData.POSB_APP_PACKAGE.getEnumValue(),
-					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("RELAUNCHING_POSB_EXCEPTION",
-					" Failed to Relaunching POSB Application  ", e);
-
-		} catch (Exception e) {
-
-			obj_handleexception.throwException("RELAUNCHING_POSB_EXCEPTION",
-					" Failed to Relaunching POSB Application  ", e);
-		}
-	}
-
-	@Step("Relaunching iWealth application")
-	public void relaunchingIwealth() throws Exception {
-		try {
-			relanchApplication(CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue(),
-					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("RELAUNCHING_iWEALTH_EXCEPTION",
-					" Failed to Relaunching iWealth Application  ", e);
-
-		} catch (Exception e) {
-
-			obj_handleexception.throwException("RELAUNCHING_iWEALTH_EXCEPTION",
-					" Failed to Relaunching iWealth Application  ", e);
-		}
-	}
-	
-	@Step("Relaunching DBS application")
-	public void relaunchingDBS() throws Exception {
-		try {
-			relanchApplication(CommonTestData.DBS_APP_PACKAGE.getEnumValue(),
-					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("RELAUNCHING_DBS_EXCEPTION",
-					" Failed to Relaunching DBS Application  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("RELAUNCHING_DBS_EXCEPTION", " Failed to Relaunching DBS Application  ",
-					e);
-		}
-	}
 	
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {

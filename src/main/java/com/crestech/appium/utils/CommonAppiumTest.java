@@ -1,7 +1,9 @@
 package com.crestech.appium.utils;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
@@ -13,8 +15,8 @@ import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.common.utilities.WaitUtils;
+import org.openqa.selenium.WebElement;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
@@ -28,12 +30,12 @@ import io.qameta.allure.Step;
 
 public class CommonAppiumTest extends CommandPrompt {
 
-	public AppiumDriver<RemoteWebElement> driver;
+	public AppiumDriver driver;
 	public WaitUtils wait = null;
 	public GestureUtils gesture = null;
 	HandleException obj_handleexception=null;
 
-	public CommonAppiumTest(AppiumDriver<RemoteWebElement> driver2) {
+	public CommonAppiumTest(AppiumDriver driver2) {
 		this.driver = driver2;
 		wait = new WaitUtils(this.driver);
 		gesture = new GestureUtils(this.driver);
@@ -50,7 +52,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 		
 		Activity activity = new Activity(appPackage, appActivity);
-		((AndroidDriver<RemoteWebElement>)driver).startActivity(activity);
+		((AndroidDriver)driver).startActivity(activity);
 		} 
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
@@ -62,7 +64,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param element
 	 * @throws Exception
 	 */
-	public void clickOnElement(MobileElement element) throws Exception {
+	public void clickOnElement(WebElement element) throws Exception {
 		try {
 				//wait.waitForElementToBeClickable(element);
 				//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
@@ -83,10 +85,11 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param TextWhich need to send to textfield
 	 * @throws Exception
 	 */
-	public void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
+	public void enterTextInTextbox(WebElement element, String keysToSend) throws Exception {
 		try {
 			//wait.waitForElementVisibility(element);
 			//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			element.click();
 			element.sendKeys(keysToSend);
 		}
 //		} catch (HandleException e) {	
@@ -120,7 +123,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return text
 	 * @throws Exception
 	 */
-	public String getTexOfElement(MobileElement element) throws Exception {
+	public String getTexOfElement(WebElement element) throws Exception {
 		try {
 		//	wait.waitForElementVisibility(element);
 			return element.getText();
@@ -144,7 +147,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public boolean isElementVisible(MobileElement element) throws Exception {
+	public boolean isElementVisible(WebElement element) throws Exception {
 		try {
 			//wait.waitForElementVisibility(element);
 			return element.isDisplayed();
@@ -161,7 +164,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public boolean isElementEnable(MobileElement element) throws Exception {
+	public boolean isElementEnable(WebElement element) throws Exception {
 		try {
 			//wait.waitForElementVisibility(element);
 			return element.isEnabled();
@@ -178,7 +181,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public boolean isElementSelected(MobileElement element) throws Exception {
+	public boolean isElementSelected(WebElement element) throws Exception {
 		try {
 		//	wait.waitForElementVisibility(element);
 			return element.isSelected();
@@ -194,7 +197,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return Point(x and Y co-ordinate)
 	 * @throws Exception
 	 */
-	public static Point getLocationOfElement(MobileElement element) throws Exception {
+	public static Point getLocationOfElement(WebElement element) throws Exception {
 		try {
 			return element.getLocation();
 		} catch (Exception e) {
@@ -208,7 +211,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return X co-ordinate
 	 * @throws Exception
 	 */
-	public int getXCoordinateOfElement(MobileElement element) throws Exception {
+	public int getXCoordinateOfElement(WebElement element) throws Exception {
 		try {
 			//wait.waitForElementToBeClickable(element);
 			return element.getLocation().getX();
@@ -223,7 +226,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return Y co-ordinate
 	 * @throws Exception
 	 */
-	public int getYCoordinateOfElement(MobileElement element) throws Exception {
+	public int getYCoordinateOfElement(WebElement element) throws Exception {
 		try {
 			//wait.waitForElementToBeClickable(element);
 			return element.getLocation().getY();
@@ -240,7 +243,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	//WORKING FINE
 	public void clickOnHomeButton() throws Exception {
 		try {
-			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.HOME));
+			((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.HOME));
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -253,7 +256,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void lockTheDevice() throws Exception {
 		try {
-			((AndroidDriver<RemoteWebElement>) driver).lockDevice();
+			((AndroidDriver) driver).lockDevice();
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -267,7 +270,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public boolean isDeviceLocked() throws Exception {
 		try {
-			boolean isLocked = ((AndroidDriver<RemoteWebElement>) driver).isDeviceLocked();
+			boolean isLocked = ((AndroidDriver) driver).isDeviceLocked();
 			return isLocked;
 		} catch (Exception e) {
 			throw e;	
@@ -282,7 +285,7 @@ public class CommonAppiumTest extends CommandPrompt {
 
 	public void unlockTheDevice() throws Exception {
 		try {
-			((AndroidDriver<RemoteWebElement>) driver).unlockDevice();
+			((AndroidDriver) driver).unlockDevice();
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -298,7 +301,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			//ConfigurationManager prop = ConfigurationManager.getInstance();
 			if (os.equalsIgnoreCase("Local")) {
-				((AndroidDriver<RemoteWebElement>) driver)
+				((AndroidDriver) driver)
 						.setConnection(new ConnectionStateBuilder().withWiFiEnabled().build());
 				//System.out.println("Enable Wifi");
 			} else {
@@ -316,7 +319,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void OpenNotificationDrawer() throws Exception {
 		try {
-			((AndroidDriver<RemoteWebElement>) driver).openNotifications();
+			((AndroidDriver) driver).openNotifications();
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -328,7 +331,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void backButton() throws Exception {
 		try {
-			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+			((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		} catch (Exception e) {
 			//throw new HandleException ("BACKBUTTONCLICK_EXCEPTION", "Failed To click on Back Button ::",e);
 			throw e;	
@@ -337,11 +340,12 @@ public class CommonAppiumTest extends CommandPrompt {
 	
 	public void hideKeyboard() {
 		try {
-		driver.hideKeyboard();
-	}catch (Exception e) {
-		throw e;	
+			// In Appium 8.x, hideKeyboard is available via executeScript
+			driver.executeScript("mobile: hideKeyboard");
+		} catch (Exception e) {
+			// Ignore if keyboard is not visible
+		}
 	}
-}
 
 	/**
 	 * disable Wifi
@@ -352,7 +356,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			//ConfigurationManager prop = ConfigurationManager.getInstance();
 			if (os.equalsIgnoreCase("Local")) {
-				((AndroidDriver<RemoteWebElement>) driver)
+				((AndroidDriver) driver)
 						.setConnection(new ConnectionStateBuilder().withWiFiDisabled().build());
 				//System.out.println("Disable Wifi");
 			} else {
@@ -366,7 +370,10 @@ public class CommonAppiumTest extends CommandPrompt {
 
 	public void resetApplication() throws Exception {
 		try {
-			driver.resetApp();
+			// In Appium 8.x, use executeScript for app management
+			String appPackage = driver.getCapabilities().getCapability("appPackage").toString();
+			driver.executeScript("mobile: terminateApp", Map.of("appId", appPackage));
+			driver.executeScript("mobile: activateApp", Map.of("appId", appPackage));
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -380,7 +387,9 @@ public class CommonAppiumTest extends CommandPrompt {
 
 	public void launchApp() throws Exception {
 		try {
-			driver.launchApp();
+			// In Appium 8.x, use executeScript for app activation
+			String appPackage = driver.getCapabilities().getCapability("appPackage").toString();
+			driver.executeScript("mobile: activateApp", Map.of("appId", appPackage));
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -397,9 +406,14 @@ public class CommonAppiumTest extends CommandPrompt {
 			int starty = (int) (windowSize.height * 0.10);
 			int endy = (int) (windowSize.height * 0.90);
 			int startx = windowSize.width / 2;
-			new TouchAction<>(driver).press(PointOption.point(startx, endy))
-					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
-					.moveTo(PointOption.point(startx, starty)).release().perform();
+			// In Appium 8.x, use mobile: swipeGesture instead of deprecated TouchAction
+			Map<String, Object> params = new HashMap<>();
+			params.put("startX", startx);
+			params.put("startY", endy);
+			params.put("endX", startx);
+			params.put("endY", starty);
+			params.put("speed", 2000);
+			((org.openqa.selenium.JavascriptExecutor) driver).executeScript("mobile: swipeGesture", params);
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -412,7 +426,8 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void runInBackgroundApp() throws Exception {
 		try {
-			driver.runAppInBackground(Duration.ofMillis(10));
+			// In Appium 8.x, use executeScript for background app
+			driver.executeScript("mobile: backgroundApp", Map.of("seconds", 0.01));
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -449,7 +464,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param element
 	 * @throws Exception
 	 */
-	public void clickOnElementOnEnable(MobileElement element) throws Exception {
+	public void clickOnElementOnEnable(WebElement element) throws Exception {
 		try {
 			if (isElementEnable(element)) {
 				//Asserts.assertTrue(isElementEnable(element), "button Not enable");
@@ -461,9 +476,9 @@ public class CommonAppiumTest extends CommandPrompt {
 		}
 	}
 	
-	public boolean isElementVisible2(MobileElement element) throws Exception {
+	public boolean isElementVisible2(WebElement element) throws Exception {
 		try {
-			//wait.waitForElementVisibility(element);
+			wait.waitForElementVisibility(element);
 			return element.isDisplayed();
 		} catch (Exception e) {
 			return false;
@@ -474,9 +489,9 @@ public class CommonAppiumTest extends CommandPrompt {
 	}
 		
 		
-		public MobileElement returnElementFromList(List<MobileElement> elementList, String elementTextToBeVerified)
+		public WebElement returnElementFromList(List<WebElement> elementList, String elementTextToBeVerified)
 				throws Exception {
-			MobileElement element = null;
+			WebElement element = null;
 			try {
 				if (elementList.size() > 0) {
 					int l = elementList.size();
@@ -497,7 +512,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			}
 			return element;
 		}
-		public void WaitForElementForNExtPage(MobileElement element) throws Exception {
+		public void WaitForElementForNExtPage(WebElement element) throws Exception {
 			try {
 				Thread.sleep(20000); 
 				int i=0;
@@ -510,6 +525,23 @@ public class CommonAppiumTest extends CommandPrompt {
 			} catch (Exception e) {
 				//e.printStackTrace();
 				throw e;
+			}
+		}
+		
+		public String getTexOfElementForIos(WebElement element) throws Exception {
+			try {
+			//	wait.waitForElementVisibility(element);
+				return element.getAttribute("name");
+			}
+//			} catch (HandleException e) {	
+//				obj_handleexception.throwHandleException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+//				//System.out.println("Inside Appply debit card catch "+e.getCode());		
+//			}
+			catch (Exception e) {			
+				//System.out.println("Inside Appply debit card catch");
+				//obj_handleexception.throwException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+				//return null;
+				throw e;	
 			}
 		}
 }

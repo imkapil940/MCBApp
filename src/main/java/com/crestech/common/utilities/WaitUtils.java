@@ -1,209 +1,186 @@
 package com.crestech.common.utilities;
 
-import java.util.concurrent.TimeUnit;
 import java.time.Duration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
 import com.crestech.appium.utils.CommandPrompt;
+
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 
 public class WaitUtils extends CommandPrompt {
 
-	public AppiumDriver<RemoteWebElement> driver = null;
-	private long WAIT_TIME = 35;
-	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
-		try {
-			this.driver = driver2;
-		} catch (Exception e) {
-			//e.printStackTrace();
-			throw e;
-		}
-	}
+    private AppiumDriver driver;
+    private final int WAIT_TIME = 5;
 
-	/**
-	 * This method will Wait For Page Load
-	 * @throws Exception 
-	 */
-	public void waitForPageLoad() throws Exception {
-		try {
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("return document.readyState").toString().equals("complete");
-		} catch (Exception e) {
-			//e.printStackTrace();
-			throw e;
-		}
-	}
+    public WaitUtils(AppiumDriver driver) {
+        this.driver = driver;
+    }
 
-	/**
-	 * This method will wait for element to be InVisible
-	 *
-	 * @param element
-	 * @throws Exception 
-	 */
-	public void waitForElementInvisibility(MobileElement element) throws Exception {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.invisibilityOf(element));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			throw e;
-		}
-	}
+    /**
+     * Waits for the page to load completely.
+     */
+    public void waitForPageLoad() throws Exception {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            for (int i = 0; i < WAIT_TIME * 2; i++) {
+                String state = js.executeScript("return document.readyState").toString();
+                if ("complete".equals(state))
+                    return;
+                Thread.sleep(500);
+            }
+            throw new Exception("Page did not load completely within " + WAIT_TIME + " seconds");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
-	public void fluentWaitForElement(MobileElement element) throws Exception {
-		try {
-		FluentWait<WebDriver> wait = new WebDriverWait(driver, WAIT_TIME)
-					.withTimeout(Duration.ofSeconds(WAIT_TIME))
-					.pollingEvery(Duration.ofSeconds(3))
-					.ignoring(NoSuchElementException.class,StaleElementReferenceException.class);
-		
-	    wait.until(ExpectedConditions.visibilityOf(element));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			throw e;
-		}
-	}
-	
+    /**
+     * Waits for an element to become invisible.
+     */
+    public void waitForElementInvisibility(WebElement element) throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.invisibilityOf(element));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    /**
+     * Reusable FluentWait for any ExpectedCondition
+     */
+    public void fluentWaitForCondition(ExpectedCondition<?> condition) {
+        new FluentWait<>(driver)
+            .withTimeout(Duration.ofSeconds(WAIT_TIME))
+            .pollingEvery(Duration.ofMillis(1000))
+            .ignoring(NoSuchElementException.class)
+            .ignoring(StaleElementReferenceException.class)
+            .until(condition);
+    }
 
-	/**
-	 * This method will wait element visibility in seconds
-	 *
-	 * @param element
-	 * @throws Exception 
-	 */
-	public void waitForElementVisibility(MobileElement element) throws Exception {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.visibilityOf(element));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//System.out.println("Inside take ele visi catch" );
-			//throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
-			throw e;
-		}
-	}
+    /**
+     * Waits for a specific element to be visible using FluentWait
+     */
+    public void fluentWaitForElement(WebElement element) throws Exception {
+        try {
+            fluentWaitForCondition(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+   
 
-	/**
-	 * This method will wait until element to be clickable
-	 *
-	 * @param element
-	 * @throws Exception 
-	 */
-	public void waitForElementToBeClickable(MobileElement element) throws Exception {
-		try {
-			//System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-		} catch (Exception e) {
-			//System.out.println("Inside take ele visi catch" );
-			//throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
-			throw e;
-		}
-	}
-	
-	public boolean waitForElementToBeClickable2(MobileElement element) throws Exception {
-		try {
-			//System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-			return true;
-		} catch (Exception e) {
-			//System.out.println("Inside take ele visi catch" );
-			//throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
-			return false;
-		}
-	}
 
-	/**
-	 * This method will wait for page load Timeout
-	 *
-	 * @param Seconds
-	 * @throws Exception 
-	 */
-	public void waitForPageLoadTimeout() throws Exception {
-		try {
-			driver.manage().timeouts().pageLoadTimeout(WAIT_TIME, TimeUnit.SECONDS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+    /**
+     * Waits for an element to be visible.
+     */
+    public void waitForElementVisibility(WebElement element) throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
-	/**
-	 * This method will wait for Element visibility on whole page.
-	 * @throws Exception
-	 */
-	public void ImplicitlyWait(int timeInSeconds) throws Exception {
-		try {
-			driver.manage().timeouts().implicitlyWait(timeInSeconds, TimeUnit.SECONDS);
-		} catch (Exception e) {
-			//System.out.println("Inside take ele visi catch" );
-			//throw new HandleException ("IMPLICIT_WAIT_EXCEPTION", "Element not Visible on the screen ::",e);
-		throw e;
-		}
-	}
-	
-	/**
-	 * This method will wait for page load with time
-	 * 
-	 * @param timeInSeconds
-	 */
-	public void waitForPageLoadedWithTime(int timeInSeconds) {
-		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString()
-						.equals("complete");
-			}
-		};
-		try {
-			Thread.sleep(1000);
-			WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
-			wait.until(expectation);
-		} catch (Throwable error) {
-			Assert.fail("Timeout waiting for Page Load Request to complete.");
-		}
-	}
+    /**
+     * Waits for an element to be clickable.
+     */
+    public void waitForElementToBeClickable(WebElement element) throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
-	/**
-	 * This method will wait until the given text is present on the given element
-	 *
-	 * @param element
-	 * @throws Exception 
-	 */
-	public void waitForTextToBePresent(MobileElement element, String text) throws Exception {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.textToBePresentInElement(element, text));;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	
+    /**
+     * Waits for an element to be clickable and returns boolean.
+     */
+    public boolean waitForElementToBeClickable2(WebElement element) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
-	/**
-	 * This method will wait until the given title is present
-	 * @param title
-	 * @throws Exception 
-	 */
-	public void waitForGivenTitle(String title) throws Exception {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
-			wait.until(ExpectedConditions.titleContains(title));
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	
-	
+    /**
+     * Sets page load timeout.
+     */
+    public void waitForPageLoadTimeout() throws Exception {
+        try {
+            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(WAIT_TIME));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Sets implicit wait for the driver.
+     */
+    public void implicitlyWait(int timeInSeconds) throws Exception {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeInSeconds));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    /**
+     * Sets implicit wait for the driver (capitalized version for compatibility).
+     */
+    public void ImplicitlyWait(int timeInSeconds) throws Exception {
+        implicitlyWait(timeInSeconds);
+    }
+
+    /**
+     * Waits for page to load within given time.
+     */
+    public void waitForPageLoadedWithTime(int timeInSeconds) {
+        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver)
+                .executeScript("return document.readyState").toString().equals("complete");
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSeconds));
+            wait.until(expectation);
+        } catch (Throwable error) {
+            Assert.fail("Timeout waiting for Page Load Request to complete.");
+        }
+    }
+
+    /**
+     * Waits until given text is present in element.
+     */
+    public void waitForTextToBePresent(WebElement element, String text) throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Waits until title contains given text.
+     */
+    public void waitForGivenTitle(String title) throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
+            wait.until(ExpectedConditions.titleContains(title));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

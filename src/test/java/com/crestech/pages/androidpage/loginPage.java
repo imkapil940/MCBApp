@@ -1,149 +1,156 @@
 package com.crestech.pages.androidpage;
 
-import java.time.Duration;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
-import com.crestech.annotation.values.ElementDescription;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.qameta.allure.Step;
+import java.util.logging.Logger; 
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.HandleException;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.qameta.allure.Step;
+import com.crestech.common.utilities.GestureUtils;
 
-/**
- * @author Divya
- *
- */
-public class loginPage extends CommonAppiumTest{
+public class loginPage extends CommonAppiumTest {
 
-	public AppiumDriver<RemoteWebElement> driver = null;
-	HandleException obj_handleexception = null;
+	private static final Logger log = Logger.getLogger(loginPage.class.getName());
+	private AppiumDriver driver;
+    private HandleException obj_handleexception;
+    private GestureUtils gestutils;
 
-	public loginPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
-		super(driver);
-		try {
-			this.driver = driver;
-		    obj_handleexception = new HandleException(null, null);
-			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+    public loginPage(AppiumDriver driver) throws Exception {
+        super(driver);
+        this.driver = driver;
+        obj_handleexception = new HandleException(null, null);
+        this.gestutils = new GestureUtils(driver);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+    }
 
+    // -------------------- Locators --------------------
 
-	@ElementDescription(value = "User ID EditTexT")
-	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
-	private MobileElement userIdEditText;
+    @AndroidFindBy(xpath = "//*[@class='android.widget.EditText']")
+    private WebElement username;
 
-	@ElementDescription(value = "User PIN EditTexT")
-	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_pin')]")
-	private MobileElement userPinEditText;
-	
-	@ElementDescription(value = "LOG IN Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG IN']")
-	private MobileElement loginButton;
-	
-	@ElementDescription(value = "NotYou Link")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Not you?']")
-	private MobileElement NotYouLink;
-	
-	@ElementDescription(value = "Peek Balance Deregister Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='DEREGISTER']")
-	private MobileElement PeekbalanceDeregisterButton;
-	
-	@ElementDescription(value = "Error Messge Element")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
-	private MobileElement ErrorMessgeElement;
-	
-	@Step("Click On Not You Link Button.")
-	public void ClickOnNOTYouLink() throws Exception {
-		try {	
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(NotYouLink);
-		} catch (HandleException e) {			
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button  ", e);
-		}
-	}
+    @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='eu.afse.omnia.mcb.curacao:id/login_button']")
+    private WebElement continueButton;
 
-	@Step("Click On Deregister Button.")
-	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
-		try {
-			String PeekBalance_DeregisterAlertMsg = getTexOfElement(ErrorMessgeElement);
+    @AndroidFindBy(xpath = "//*[@text='Password']")
+    private WebElement password;
 
-			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg))
-			{
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(PeekbalanceDeregisterButton);
-				wait.waitForElementVisibility(userIdEditText);
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button  ", e);
-		}
-	}
-	
-	@Step("Enter User name")
-	public void enterUserName(String text) throws Exception {
-		try {
-			WaitForElementForNExtPage(userIdEditText);
-			enterTextInTextbox(userIdEditText, text);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter User name ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter User name ", e);
-		}
-	}
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text and contains(@resource-id, 'otp')]")
+    private WebElement ecodeElement;
 
-	@Step("Enter Password")
-	public void enterPassword(String text) throws Exception {
-		try {
-			enterTextInTextbox(userPinEditText, text);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Password ", e);
+    @AndroidFindBy(xpath = "//*[@text='e-Code']")
+    private WebElement ecode;
 
-		} catch (Exception e) {
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='LOGIN']")
+    private WebElement loginButton;
 
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Password ", e);
-		}
-	}
-	
-	@Step("Clicked on Login button after Enter User Pin")
-	public void clickOnLoginButton2() throws Exception {
-		try {
-			int count = 0;
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			do {
-				clickOnElement(loginButton);
-				Thread.sleep(5000);
-				count++;
-			} while (isElementVisible2(loginButton) && count < 3);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
-		}
-	}
-	
-	@Step("LogIn Application")
-	public void EnterCredentialsAndLogin(String userName, String password) throws Exception {
-		try {
-			enterUserName(userName);
-			enterPassword(password);
-		//	driver.navigate().back();
-			backButton();
-			clickOnLoginButton2();
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
-		}
-	}
-	
+    @AndroidFindBy(xpath = "//*[@text='Register Device']")
+    private WebElement registerText;
+
+    @AndroidFindBy(xpath = "//*[@text='CONTINUE']")
+    private WebElement registerContinue;
+
+    @AndroidFindBy(xpath = "//*[@text='Allow']")
+    private WebElement allowButton;
+
+    @AndroidFindBy(xpath = "//*[@text='Enter PIN']")
+    private WebElement enterPin;
+
+    @AndroidFindBy(xpath = "//*[@text='Repeat PIN']")
+    private WebElement repeatPin;
+
+    @AndroidFindBy(xpath = "//*[@text='Confirm Transaction']")
+    private WebElement confirmTransaction;
+
+    // -------------------- Getter Methods --------------------
+    public WebElement getUsernameField() { return username; }
+    public WebElement getContinueButton() { return continueButton; }
+    public WebElement getPasswordField() { return password; }
+    public WebElement getEcodeElement() { return ecodeElement; }
+    public WebElement getEcodeField() { return ecode; }
+    public WebElement getLoginButton() { return loginButton; }
+    public WebElement getRegisterText() { return registerText; }
+    public WebElement getRegisterContinue() { return registerContinue; }
+    public WebElement getAllowButton() { return allowButton; }
+    public WebElement getEnterPin() { return enterPin; }
+    public WebElement getRepeatPin() { return repeatPin; }
+    public WebElement getConfirmTransaction() { return confirmTransaction; }
+
+    // -------------------- Actions --------------------
+
+    @Step("Enter username: {0}")
+    public void enterUsername(String user) {
+        username.click();
+        username.sendKeys(user);
+    }
+
+    @Step("Enter password: {0}")
+    public void enterPassword(String pass) {
+        password.click();
+        password.sendKeys(pass);
+    }
+
+    @Step("Click Continue button")
+    public void clickContinue() {
+        continueButton.click();
+    }
+
+    @Step("Click Login button")
+    public void clickLogin() {
+        loginButton.click();
+    }
+
+    @Step("Fetch e-code from Entrust app")
+    public String fetchEcodeFromEntrust() throws Exception {
+        Activity entrustActivity = new Activity("com.entrust.identityGuard.mobile",
+                "com.entrust.identityGuard.mobile.MainActivity");
+        ((AndroidDriver) driver).startActivity(entrustActivity);
+
+        Thread.sleep(5000);
+        new Actions(driver).sendKeys("2024").perform();
+        return ecodeElement.getText();
+    }
+
+    @Step("Switch back to MCB app")
+    public void switchToMCBApp() {
+        ((AndroidDriver) driver).activateApp("eu.afse.omnia.mcb.curacao");
+    }
+
+    @Step("Complete registration process")
+    public void completeRegistration(String pin) throws InterruptedException {
+        registerContinue.click();
+        allowButton.click();
+        enterPin.click();
+        new Actions(driver).sendKeys(pin).perform();
+        repeatPin.click();
+        new Actions(driver).sendKeys(pin).perform();
+        ((AndroidDriver) driver).pressKey(new io.appium.java_client.android.nativekey.KeyEvent(io.appium.java_client.android.nativekey.AndroidKey.ENTER));
+    }
+    
+    public boolean isInvalidEcodePopupDisplayed() {
+        try {
+            WebElement popup = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'invalid') or contains(@text,'incorrect')]"));
+            return popup.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickPopupOk() {
+        try {
+            WebElement okButton = driver.findElement(By.xpath("//android.widget.Button[@text='OK' or @text='Ok']"));
+            okButton.click();
+            log.info("Clicked on OK button of invalid eCode popup");
+        } catch (Exception e) {
+            log.warning("OK button not found in popup: " + e.getMessage());
+        }
+    }
+
 }

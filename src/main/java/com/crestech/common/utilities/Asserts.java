@@ -29,6 +29,11 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
+	public static void addAttachment() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void assertTrue(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {

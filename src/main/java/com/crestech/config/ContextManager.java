@@ -29,7 +29,8 @@ public class ContextManager {
 	private static ExtentTest extendLogger;
 	
 	private static Map<Long, ExtentTest> reportLogger = new ConcurrentHashMap<Long, ExtentTest>();
-	private static Map<Long, AppiumDriver<RemoteWebElement>> driverMapper = new ConcurrentHashMap<Long, AppiumDriver<RemoteWebElement>>();
+	@SuppressWarnings("rawtypes")
+	private static Map<Long, AppiumDriver> driverMapper = new ConcurrentHashMap<Long, AppiumDriver>();
 	
 
 	public synchronized static void startReport() {
@@ -64,11 +65,19 @@ public class ContextManager {
 		extent.flush();
 	}
 
-	public static void setDriver(AppiumDriver<RemoteWebElement> driver) {
-		driverMapper.put(Thread.currentThread().getId(), driver);
+	@SuppressWarnings("rawtypes")
+	public static void setDriver(AppiumDriver driver) {
+		Long threadId = Thread.currentThread().getId();
+		if (driver == null) {
+			// Remove entry instead of putting null (ConcurrentHashMap doesn't allow null values)
+			driverMapper.remove(threadId);
+		} else {
+			driverMapper.put(threadId, driver);
+		}
 	}
 
-	public static AppiumDriver<RemoteWebElement> getDriver() {
+	@SuppressWarnings("rawtypes")
+	public static AppiumDriver getDriver() {
 		return  driverMapper.get(Thread.currentThread().getId());
 	}
 	

@@ -19,14 +19,12 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.testng.annotations.Listeners;
+
 
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.listeners.TestListener;
 
-import io.qameta.allure.Step;
 
-@Listeners({ TestListener.class })
+
 public class ExcelUtils {
 	
 	public final HashMap<String, HashMap<String, String>> TestDataMap;
@@ -36,7 +34,7 @@ public class ExcelUtils {
 
 	
 	/**
-	 * @author Sneha Aggarwal
+	 * @author KAPIL SHARMA
 	 * @param name- file path, key and sheet name
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Read excel at a specified path, sheet and a key value
@@ -44,7 +42,6 @@ public class ExcelUtils {
 	 * @throws Exception 
 	 */
 
-	@Step("Read Excel")
 	public static List<String> readExcel(String path, String key, String sheetName) throws Exception {
 		try {
 			// initialize variables
@@ -55,8 +52,8 @@ public class ExcelUtils {
 			DataFormatter formatter = new DataFormatter();
 			List<String> val = new ArrayList<String>();
 			// Open excel
-			try {
-				wb = new XSSFWorkbook(path);
+			try (FileInputStream fis = new FileInputStream(path)) {
+				wb = new XSSFWorkbook(fis);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -94,20 +91,14 @@ public class ExcelUtils {
 	 * @return workbook
 	 * @throws Exception 
 	 */
-	@Step("Read Excel")
 	public static XSSFWorkbook openExcel(String path) throws Exception {
 		try {
 			// initialize variables
 			XSSFWorkbook wb = null;
-			// Open excel
-			try {
-				wb = new XSSFWorkbook(path);
+			// Open excel in read-only mode via stream to avoid file locking/write attempts
+			try (FileInputStream fis = new FileInputStream(path)) {
+				wb = new XSSFWorkbook(fis);
 			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				wb.close();
-			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return wb;
@@ -125,7 +116,6 @@ public class ExcelUtils {
 	 * @return workbook
 	 * @throws Exception 
 	 */
-	@Step("Read Excel")
 	public static void closeExcel(XSSFWorkbook wb) throws Exception {
 		try {
 			wb.close();
@@ -143,7 +133,6 @@ public class ExcelUtils {
 	 * @return List of String
 	 * @throws Exception 
 	 */
-	@Step("Read Excel")
 	public static List<String> readExcel(String key, String sheetName, XSSFWorkbook wb) throws Exception {
 		try {
 			// initialize variables
@@ -195,8 +184,8 @@ public class ExcelUtils {
 			XSSFSheet sheet = null;
 			List<String> val = new ArrayList<String>();
 			// Open workbook
-			try {
-				wb = new XSSFWorkbook(path);
+			try (FileInputStream fis = new FileInputStream(path)) {
+				wb = new XSSFWorkbook(fis);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -242,8 +231,8 @@ public class ExcelUtils {
 			XSSFWorkbook wb = null;
 			XSSFSheet sheet = null;
 			String val = null;
-			try {
-				wb = new XSSFWorkbook(path);
+			try (FileInputStream fis = new FileInputStream(path)) {
+				wb = new XSSFWorkbook(fis);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -318,6 +307,9 @@ public class ExcelUtils {
 		XSSFWorkbook wb = null;
 		try {
 			wb = new XSSFWorkbook(inputStream);
+			// Close input stream as we no longer need to read once workbook is loaded
+			inputStream.close();
+			inputStream = null;
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -365,8 +357,11 @@ public class ExcelUtils {
 		FileOutputStream fileOut;
 		try {
 			fileOut = new FileOutputStream(path);
-			wb.write(fileOut);
-			fileOut.close();
+			try {
+				wb.write(fileOut);
+			} finally {
+				fileOut.close();
+			}
 			wb.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -390,7 +385,11 @@ public class ExcelUtils {
 		HashMap<String, String> dataMap = new HashMap<String, String>();
 		try {
 			fis = new FileInputStream(path);
-			wb = new XSSFWorkbook(fis);
+			try {
+				wb = new XSSFWorkbook(fis);
+			} finally {
+				fis.close();
+			}
 			XSSFSheet sheet = wb.getSheet(sheetName);
 			int lastRow = sheet.getLastRowNum();
 
@@ -406,6 +405,7 @@ public class ExcelUtils {
 				// Putting key & value in dataMap
 				dataMap.put(key, value);
 			}
+			wb.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			throw e;

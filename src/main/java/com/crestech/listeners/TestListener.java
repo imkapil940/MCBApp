@@ -15,17 +15,24 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.base.UserBaseTest;
+import com.crestech.appium.utils.ConfigurationManager;
 import com.crestech.config.ContextManager;
+import io.appium.java_client.AppiumDriver;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Attachment;
 
-public class TestListener extends UserBaseTest implements ITestListener {
+public class TestListener implements ITestListener {
 	
-	public TestListener() throws Exception {
-		super();
+	private ConfigurationManager prop;
+	
+	public TestListener() {
+		try {
+			prop = ConfigurationManager.getInstance();
+		} catch (Exception e) {
+			// ignore: reporting type will be treated as non-allure
+		}
 	}
 
 	//private static String deviceName =null;
@@ -79,8 +86,12 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		//	setDeviceName(iTestContext);
 			System.out.println("I am in onStart method " + iTestContext.getName()	);
 			//System.out.println("HI");
-			iTestContext.setAttribute("WebDriver", this.driver);
-			if (prop.getProperty("ReportType").equals("allure")) {
+			@SuppressWarnings("rawtypes")
+			AppiumDriver driver = ContextManager.getDriver();
+			if (driver != null) {
+				iTestContext.setAttribute("WebDriver", driver);
+			}
+			if (prop != null && "allure".equalsIgnoreCase(prop.getProperty("ReportType"))) {
 				try {
 					File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
 					FileUtils.deleteDirectory(fileClean);
@@ -127,14 +138,20 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		System.out.println("I am in onTestSuccess method " + getTestMethodName(iTestResult) + " succeed");
 		// Extent reports log operation for passed tests.
 		// ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
-		WebDriver driver = ContextManager.getDriver();
-		 AllureLifecycle lifecycle = Allure.getLifecycle();
-		 lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult)));
+		@SuppressWarnings("rawtypes")
+		AppiumDriver driver = ContextManager.getDriver();
+		try {
+			AllureLifecycle lifecycle = Allure.getLifecycle();
+			lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult)));
+		} catch (Exception ignored) {
+			// Ignore when no allure test case is active
+		}
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
 			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
 			saveScreenshotPNG(driver);
 		}
+		
 	}
 
 	@Override
@@ -143,10 +160,15 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 		// Get driver from BaseTest and assign to local webdriver variable.
 		Object testClass = iTestResult.getInstance();
-		RemoteWebDriver driver = ContextManager.getDriver();
+		@SuppressWarnings("rawtypes")
+		AppiumDriver driver = ContextManager.getDriver();
 
-		 AllureLifecycle lifecycle = Allure.getLifecycle();
-		 lifecycle.updateTestCase(testResult -> testResult.setDescription(iTestResult.getThrowable().getLocalizedMessage()));
+		try {
+			AllureLifecycle lifecycle = Allure.getLifecycle();
+			lifecycle.updateTestCase(testResult -> testResult.setDescription(iTestResult.getThrowable().getLocalizedMessage()));
+		} catch (Exception ignored) {
+			// Ignore when no allure test case is active
+		}
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
 			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
@@ -154,7 +176,11 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		}
 
 		// Save a log on allure.
-		saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
+		try {
+			saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
+		} catch (Exception ignored) {
+			// Ignore when no allure test case is active
+		}
 
 	}
 
@@ -164,8 +190,12 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		// Extent reports log operation for skipped tests.
 		// ExtentTestManager.getTest().log(LogStatus.SKIP,
 		// getTestMethodName(iTestResult) + " Test Skipped");
-		 AllureLifecycle lifecycle = Allure.getLifecycle();
-		 lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult))); 
+		try {
+			AllureLifecycle lifecycle = Allure.getLifecycle();
+			lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult))); 
+		} catch (Exception ignored) {
+			// Ignore when no allure test case is active
+		}
 	}
 
 	@Override
