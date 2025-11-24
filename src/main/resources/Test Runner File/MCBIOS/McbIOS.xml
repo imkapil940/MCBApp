@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" configfailurepolicy="continue"
+	name="pCloudy iOS Mcb Suite" parallel="tests">
+	<listeners>
+		<listener class-name="com.crestech.listeners.AlterSuite" />
+		<!-- <listener class-name="com.crestech.listeners.TestListener" /> -->
+		<!-- <listener class-name="com.pCloudy.base.InvokedMethodListeners" />
+		<listener class-name="com.pCloudy.base.Reporter" /> -->
+	</listeners>
+	<test name="Test">
+		<classes>
+		    <class name="com.crestech.listeners.RetryAnalyzer" />
+			<class name="com.crestech.android.tests.Mcb_IOSTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

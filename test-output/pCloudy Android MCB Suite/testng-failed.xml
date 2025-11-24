@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" thread-count="1" parallel="tests" name="Failed suite [pCloudy Android MCB Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="com.crestech.listeners.AlterSuite"/>
+    <listener class-name="com.crestech.listeners.ExtentTestNGListener"/>
+    <listener class-name="com.crestech.listeners.TeamsReporterListener"/>
+  </listeners>
+  <test thread-count="1" parallel="tests" name="SAMSUNG_GalaxyA33_Android_14.0.0_2944d(failed)">
+    <parameter name="password" value="3672"/>
+    <parameter name="app_Name" value="MCB"/>
+    <parameter name="os" value="pCloudyAndroid"/>
+    <parameter name="manafacturer" value="Samsung"/>
+    <parameter name="min_Ver" value="8.1.0"/>
+    <parameter name="userName" value="7701833994"/>
+    <parameter name="max_Ver" value="15.0.0"/>
+    <parameter name="device" value="SAMSUNG_GalaxyA33_Android_14.0.0_2944d"/>
+    <parameter name="version" value="14.0.0"/>
+    <parameter name="individual_ID" value="1"/>
+    <classes>
+      <class name="com.crestech.android.tests.McbAndroidTest">
+        <methods>
+          <include name="flushReport"/>
+          <include name="beforeSuite"/>
+          <include name="MCBAppLogin"/>
+          <include name="startApp"/>
+          <include name="closeSuite"/>
+          <include name="getResult"/>
+        </methods>
+      </class> <!-- com.crestech.android.tests.McbAndroidTest -->
+    </classes>
+  </test> <!-- SAMSUNG_GalaxyA33_Android_14.0.0_2944d(failed) -->
+</suite> <!-- Failed suite [pCloudy Android MCB Suite] -->

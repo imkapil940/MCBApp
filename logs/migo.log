@@ -1,0 +1,244 @@
+[main] 10:44:34,438 DEBUG [BasicClientConnectionManager] Get connection for route {s}->https://api.qase.io:443
+[main] 10:44:34,475 DEBUG [DefaultClientConnectionOperator] Connecting to api.qase.io:443
+[main] 10:44:35,187 DEBUG [RequestAddCookies] CookieSpec selected: ignoreCookies
+[main] 10:44:35,187 DEBUG [RequestAuthCache] Auth cache not set in the context
+[main] 10:44:35,187 DEBUG [RequestTargetAuthentication] Target auth state: UNCHALLENGED
+[main] 10:44:35,194 DEBUG [RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+[main] 10:44:35,194 DEBUG [DefaultHttpClient] Attempt 1 to execute request
+[main] 10:44:35,194 DEBUG [DefaultClientConnection] Sending request: POST /v1/run/FOMBPPCPOC HTTP/1.1
+[main] 10:44:35,194 DEBUG [wire]  >> "POST /v1/run/FOMBPPCPOC HTTP/1.1[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Accept: */*[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Content-Type: application/json[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Content-Length: 87[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Host: api.qase.io[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Connection: Keep-Alive[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[main] 10:44:35,194 DEBUG [wire]  >> "[\r][\n]"
+[main] 10:44:35,194 DEBUG [headers] >> POST /v1/run/FOMBPPCPOC HTTP/1.1
+[main] 10:44:35,194 DEBUG [headers] >> Accept: */*
+[main] 10:44:35,194 DEBUG [headers] >> Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd
+[main] 10:44:35,194 DEBUG [headers] >> Content-Type: application/json
+[main] 10:44:35,194 DEBUG [headers] >> Content-Length: 87
+[main] 10:44:35,194 DEBUG [headers] >> Host: api.qase.io
+[main] 10:44:35,203 DEBUG [headers] >> Connection: Keep-Alive
+[main] 10:44:35,203 DEBUG [headers] >> User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)
+[main] 10:44:35,203 DEBUG [headers] >> Accept-Encoding: gzip,deflate
+[main] 10:44:35,204 DEBUG [wire]  >> "{"title":"Epic: FOMBPPCPOC-1 - Verify Confirmation Transcation Screen - 1763702071098"}"
+[main] 10:44:35,622 DEBUG [wire]  << "HTTP/1.1 200 OK[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Date: Fri, 21 Nov 2025 05:14:34 GMT[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Content-Type: application/json[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Transfer-Encoding: chunked[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Connection: keep-alive[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Cache-Control: no-cache, private[\r][\n]"
+[main] 10:44:35,633 DEBUG [wire]  << "Strict-Transport-Security: max-age=31536000; includeSubDomains[\r][\n]"
+[main] 10:44:35,636 DEBUG [wire]  << "[\r][\n]"
+[main] 10:44:35,638 DEBUG [DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+[main] 10:44:35,638 DEBUG [headers] << HTTP/1.1 200 OK
+[main] 10:44:35,638 DEBUG [headers] << Date: Fri, 21 Nov 2025 05:14:34 GMT
+[main] 10:44:35,638 DEBUG [headers] << Content-Type: application/json
+[main] 10:44:35,638 DEBUG [headers] << Transfer-Encoding: chunked
+[main] 10:44:35,638 DEBUG [headers] << Connection: keep-alive
+[main] 10:44:35,638 DEBUG [headers] << Cache-Control: no-cache, private
+[main] 10:44:35,641 DEBUG [headers] << Strict-Transport-Security: max-age=31536000; includeSubDomains
+[main] 10:44:35,656 DEBUG [DefaultHttpClient] Connection can be kept alive indefinitely
+[main] 10:44:35,698 DEBUG [RestAssuredHttpBuilder] Parsing response as: application/json
+[main] 10:44:35,698 DEBUG [RestAssuredHttpBuilder] Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+[main] 10:44:35,982 DEBUG [wire]  << "23[\r][\n]"
+[main] 10:44:35,982 DEBUG [wire]  << "{"status":true,"result":{"id":137}}"
+[main] 10:44:35,982 DEBUG [wire]  << "[\r][\n]"
+[main] 10:44:35,982 DEBUG [wire]  << "0[\r][\n]"
+[main] 10:44:35,982 DEBUG [wire]  << "[\r][\n]"
+[main] 10:44:35,982 DEBUG [BasicClientConnectionManager] Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@2162b22d
+[main] 10:44:35,982 DEBUG [BasicClientConnectionManager] Connection can be kept alive indefinitely
+[Finalizer] 10:44:38,920 DEBUG [DefaultClientConnection] Connection 0.0.0.0:50243<->3.143.109.136:443 closed
+[TestNG-tests-1] 10:45:13,527 DEBUG [cache] Couldn't find template in cache for "spark/spark.spa.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:13,528 DEBUG [cache] TemplateLoader.findTemplateSource("spark/spark.spa_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:13,530 DEBUG [cache] TemplateLoader.findTemplateSource("spark/spark.spa_en.ftl"): Not found
+[TestNG-tests-1] 10:45:13,531 DEBUG [cache] TemplateLoader.findTemplateSource("spark/spark.spa.ftl"): Found
+[TestNG-tests-1] 10:45:13,531 DEBUG [cache] Loading template for "spark/spark.spa.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/spark.spa.ftl"
+[TestNG-tests-1] 10:45:13,892 DEBUG [cache] Couldn't find template in cache for "commons/commons-variables.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:13,893 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-variables_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:13,893 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-variables_en.ftl"): Not found
+[TestNG-tests-1] 10:45:13,893 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-variables.ftl"): Found
+[TestNG-tests-1] 10:45:13,894 DEBUG [cache] Loading template for "commons/commons-variables.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/commons/commons-variables.ftl"
+[TestNG-tests-1] 10:45:13,971 DEBUG [cache] Couldn't find template in cache for "commons/commons-macros.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:13,973 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-macros_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:13,974 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-macros_en.ftl"): Not found
+[TestNG-tests-1] 10:45:13,974 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-macros.ftl"): Found
+[TestNG-tests-1] 10:45:13,974 DEBUG [cache] Loading template for "commons/commons-macros.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/commons/commons-macros.ftl"
+[TestNG-tests-1] 10:45:13,996 DEBUG [cache] Couldn't find template in cache for "spark/macros/attributes.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:13,996 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/attributes_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:13,997 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/attributes_en.ftl"): Not found
+[TestNG-tests-1] 10:45:13,997 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/attributes.ftl"): Found
+[TestNG-tests-1] 10:45:13,997 DEBUG [cache] Loading template for "spark/macros/attributes.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/macros/attributes.ftl"
+[TestNG-tests-1] 10:45:14,000 DEBUG [cache] Couldn't find template in cache for "spark/macros/log.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,000 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/log_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,001 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/log_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,001 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/log.ftl"): Found
+[TestNG-tests-1] 10:45:14,001 DEBUG [cache] Loading template for "spark/macros/log.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/macros/log.ftl"
+[TestNG-tests-1] 10:45:14,005 DEBUG [cache] Couldn't find template in cache for "spark/macros/recurse_nodes.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,006 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/recurse_nodes_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,006 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/recurse_nodes_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,007 DEBUG [cache] TemplateLoader.findTemplateSource("spark/macros/recurse_nodes.ftl"): Found
+[TestNG-tests-1] 10:45:14,007 DEBUG [cache] Loading template for "spark/macros/recurse_nodes.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/macros/recurse_nodes.ftl"
+[TestNG-tests-1] 10:45:14,011 DEBUG [cache] "spark/macros/log.ftl"("en_US", UTF-8, parsed) cached copy not yet stale; using cached.
+[TestNG-tests-1] 10:45:14,016 DEBUG [cache] Couldn't find template in cache for "spark/partials/head.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,017 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/head_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,017 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/head_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,017 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/head.ftl"): Found
+[TestNG-tests-1] 10:45:14,017 DEBUG [cache] Loading template for "spark/partials/head.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/head.ftl"
+[TestNG-tests-1] 10:45:14,023 DEBUG [cache] Couldn't find template in cache for "commons/commons-inject-css.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,024 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-css_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,024 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-css_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,025 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-css.ftl"): Found
+[TestNG-tests-1] 10:45:14,025 DEBUG [cache] Loading template for "commons/commons-inject-css.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/commons/commons-inject-css.ftl"
+[TestNG-tests-1] 10:45:14,026 DEBUG [cache] Couldn't find template in cache for "spark/partials/navbar.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,027 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/navbar_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,027 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/navbar_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,027 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/navbar.ftl"): Found
+[TestNG-tests-1] 10:45:14,027 DEBUG [cache] Loading template for "spark/partials/navbar.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/navbar.ftl"
+[TestNG-tests-1] 10:45:14,043 DEBUG [cache] Couldn't find template in cache for "spark/partials/sidenav.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,043 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/sidenav_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,044 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/sidenav_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,044 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/sidenav.ftl"): Found
+[TestNG-tests-1] 10:45:14,044 DEBUG [cache] Loading template for "spark/partials/sidenav.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/sidenav.ftl"
+[TestNG-tests-1] 10:45:14,047 DEBUG [cache] Couldn't find template in cache for "spark/partials/test.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,048 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/test_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,048 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/test_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,048 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/test.ftl"): Found
+[TestNG-tests-1] 10:45:14,048 DEBUG [cache] Loading template for "spark/partials/test.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/test.ftl"
+[TestNG-tests-1] 10:45:14,084 DEBUG [cache] Couldn't find template in cache for "spark/partials/standard-content.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,085 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/standard-content_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,085 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/standard-content_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,085 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/standard-content.ftl"): Found
+[TestNG-tests-1] 10:45:14,086 DEBUG [cache] Loading template for "spark/partials/standard-content.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/standard-content.ftl"
+[TestNG-tests-1] 10:45:14,096 DEBUG [cache] "spark/partials/standard-content.ftl"("en_US", UTF-8, parsed) cached copy not yet stale; using cached.
+[TestNG-tests-1] 10:45:14,097 DEBUG [cache] Couldn't find template in cache for "spark/partials/dashboard.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,098 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/dashboard_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,098 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/dashboard_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,099 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/dashboard.ftl"): Found
+[TestNG-tests-1] 10:45:14,099 DEBUG [cache] Loading template for "spark/partials/dashboard.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/dashboard.ftl"
+[TestNG-tests-1] 10:45:14,173 DEBUG [cache] Couldn't find template in cache for "spark/partials/scripts.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,174 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/scripts_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,174 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/scripts_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,175 DEBUG [cache] TemplateLoader.findTemplateSource("spark/partials/scripts.ftl"): Found
+[TestNG-tests-1] 10:45:14,175 DEBUG [cache] Loading template for "spark/partials/scripts.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/spark/partials/scripts.ftl"
+[TestNG-tests-1] 10:45:14,177 DEBUG [cache] Couldn't find template in cache for "commons/commons-inject-js.ftl"("en_US", UTF-8, parsed); will try to load it.
+[TestNG-tests-1] 10:45:14,177 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-js_en_US.ftl"): Not found
+[TestNG-tests-1] 10:45:14,178 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-js_en.ftl"): Not found
+[TestNG-tests-1] 10:45:14,178 DEBUG [cache] TemplateLoader.findTemplateSource("commons/commons-inject-js.ftl"): Found
+[TestNG-tests-1] 10:45:14,178 DEBUG [cache] Loading template for "commons/commons-inject-js.ftl"("en_US", UTF-8, parsed) from "jar:file:/C:/Users/KapildevSharma/.m2/repository/com/aventstack/extentreports/4.1.6/extentreports-4.1.6.jar!/com/aventstack/extentreports/view/commons/commons-inject-js.ftl"
+[main] 10:45:14,778 DEBUG [BasicClientConnectionManager] Get connection for route {s}->https://api.qase.io:443
+[main] 10:45:14,781 DEBUG [DefaultClientConnectionOperator] Connecting to api.qase.io:443
+[main] 10:45:15,352 DEBUG [RequestAddCookies] CookieSpec selected: ignoreCookies
+[main] 10:45:15,352 DEBUG [RequestAuthCache] Auth cache not set in the context
+[main] 10:45:15,352 DEBUG [RequestTargetAuthentication] Target auth state: UNCHALLENGED
+[main] 10:45:15,352 DEBUG [RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+[main] 10:45:15,352 DEBUG [DefaultHttpClient] Attempt 1 to execute request
+[main] 10:45:15,352 DEBUG [DefaultClientConnection] Sending request: GET /v1/run/FOMBPPCPOC/137 HTTP/1.1
+[main] 10:45:15,353 DEBUG [wire]  >> "GET /v1/run/FOMBPPCPOC/137 HTTP/1.1[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Content-Type: application/json[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Accept: */*[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Host: api.qase.io[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Connection: Keep-Alive[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[main] 10:45:15,353 DEBUG [wire]  >> "[\r][\n]"
+[main] 10:45:15,353 DEBUG [headers] >> GET /v1/run/FOMBPPCPOC/137 HTTP/1.1
+[main] 10:45:15,353 DEBUG [headers] >> Content-Type: application/json
+[main] 10:45:15,353 DEBUG [headers] >> Accept: */*
+[main] 10:45:15,353 DEBUG [headers] >> Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd
+[main] 10:45:15,353 DEBUG [headers] >> Host: api.qase.io
+[main] 10:45:15,353 DEBUG [headers] >> Connection: Keep-Alive
+[main] 10:45:15,353 DEBUG [headers] >> User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)
+[main] 10:45:15,353 DEBUG [headers] >> Accept-Encoding: gzip,deflate
+[main] 10:45:15,763 DEBUG [wire]  << "HTTP/1.1 200 OK[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Date: Fri, 21 Nov 2025 05:15:15 GMT[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Content-Type: application/json[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Transfer-Encoding: chunked[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Connection: keep-alive[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Cache-Control: no-cache, private[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "X-RateLimit-Limit: 1500[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "X-RateLimit-Remaining: 1497[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "Strict-Transport-Security: max-age=31536000; includeSubDomains[\r][\n]"
+[main] 10:45:15,764 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:15,764 DEBUG [DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+[main] 10:45:15,764 DEBUG [headers] << HTTP/1.1 200 OK
+[main] 10:45:15,764 DEBUG [headers] << Date: Fri, 21 Nov 2025 05:15:15 GMT
+[main] 10:45:15,764 DEBUG [headers] << Content-Type: application/json
+[main] 10:45:15,765 DEBUG [headers] << Transfer-Encoding: chunked
+[main] 10:45:15,765 DEBUG [headers] << Connection: keep-alive
+[main] 10:45:15,765 DEBUG [headers] << Cache-Control: no-cache, private
+[main] 10:45:15,765 DEBUG [headers] << X-RateLimit-Limit: 1500
+[main] 10:45:15,765 DEBUG [headers] << X-RateLimit-Remaining: 1497
+[main] 10:45:15,765 DEBUG [headers] << Strict-Transport-Security: max-age=31536000; includeSubDomains
+[main] 10:45:15,765 DEBUG [DefaultHttpClient] Connection can be kept alive indefinitely
+[main] 10:45:15,765 DEBUG [RestAssuredHttpBuilder] Parsing response as: application/json
+[main] 10:45:15,765 DEBUG [RestAssuredHttpBuilder] Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+[main] 10:45:15,775 DEBUG [wire]  << "201[\r][\n]"
+[main] 10:45:15,775 DEBUG [wire]  << "{"status":true,"result":{"id":137,"title":"Epic: FOMBPPCPOC-1 - Verify Confirmation Transcation Screen - 1763702071098","description":null,"status":0,"status_text":"in_progress","start_time":"2025-11-21T05:14:35+00:00","end_time":null,"public":false,"stats":{"total":0,"statuses":{},"untested":0,"passed":0,"failed":0,"blocked":0,"skipped":0,"retest":0,"in_progress":0,"invalid":0},"time_spent":0,"elapsed_time":0,"user_id":15,"environment":null,"milestone":null,"custom_fields":[],"tags":[],"configurations":[]}}"
+[main] 10:45:15,775 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:15,777 DEBUG [wire]  << "0[\r][\n]"
+[main] 10:45:15,777 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:15,777 DEBUG [BasicClientConnectionManager] Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@62225578
+[main] 10:45:15,777 DEBUG [BasicClientConnectionManager] Connection can be kept alive indefinitely
+[main] 10:45:15,871 DEBUG [BasicClientConnectionManager] Get connection for route {s}->https://api.qase.io:443
+[main] 10:45:15,872 DEBUG [DefaultClientConnectionOperator] Connecting to api.qase.io:443
+[main] 10:45:16,369 DEBUG [RequestAddCookies] CookieSpec selected: ignoreCookies
+[main] 10:45:16,369 DEBUG [RequestAuthCache] Auth cache not set in the context
+[main] 10:45:16,369 DEBUG [RequestTargetAuthentication] Target auth state: UNCHALLENGED
+[main] 10:45:16,369 DEBUG [RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+[main] 10:45:16,369 DEBUG [DefaultHttpClient] Attempt 1 to execute request
+[main] 10:45:16,369 DEBUG [DefaultClientConnection] Sending request: POST /v1/run/FOMBPPCPOC/137/complete HTTP/1.1
+[main] 10:45:16,369 DEBUG [wire]  >> "POST /v1/run/FOMBPPCPOC/137/complete HTTP/1.1[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Accept: */*[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Content-Length: 0[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Host: api.qase.io[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Connection: Keep-Alive[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[main] 10:45:16,369 DEBUG [wire]  >> "[\r][\n]"
+[main] 10:45:16,369 DEBUG [headers] >> POST /v1/run/FOMBPPCPOC/137/complete HTTP/1.1
+[main] 10:45:16,369 DEBUG [headers] >> Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+[main] 10:45:16,369 DEBUG [headers] >> Accept: */*
+[main] 10:45:16,371 DEBUG [headers] >> Token: 44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd
+[main] 10:45:16,371 DEBUG [headers] >> Content-Length: 0
+[main] 10:45:16,371 DEBUG [headers] >> Host: api.qase.io
+[main] 10:45:16,371 DEBUG [headers] >> Connection: Keep-Alive
+[main] 10:45:16,371 DEBUG [headers] >> User-Agent: Apache-HttpClient/4.5.2 (Java/21.0.8)
+[main] 10:45:16,371 DEBUG [headers] >> Accept-Encoding: gzip,deflate
+[main] 10:45:16,731 DEBUG [wire]  << "HTTP/1.1 200 OK[\r][\n]"
+[main] 10:45:16,731 DEBUG [wire]  << "Date: Fri, 21 Nov 2025 05:15:16 GMT[\r][\n]"
+[main] 10:45:16,731 DEBUG [wire]  << "Content-Type: application/json[\r][\n]"
+[main] 10:45:16,731 DEBUG [wire]  << "Transfer-Encoding: chunked[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "Connection: keep-alive[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "Cache-Control: no-cache, private[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "X-RateLimit-Limit: 1500[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "X-RateLimit-Remaining: 1496[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "Strict-Transport-Security: max-age=31536000; includeSubDomains[\r][\n]"
+[main] 10:45:16,732 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:16,732 DEBUG [DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+[main] 10:45:16,733 DEBUG [headers] << HTTP/1.1 200 OK
+[main] 10:45:16,733 DEBUG [headers] << Date: Fri, 21 Nov 2025 05:15:16 GMT
+[main] 10:45:16,733 DEBUG [headers] << Content-Type: application/json
+[main] 10:45:16,733 DEBUG [headers] << Transfer-Encoding: chunked
+[main] 10:45:16,733 DEBUG [headers] << Connection: keep-alive
+[main] 10:45:16,733 DEBUG [headers] << Cache-Control: no-cache, private
+[main] 10:45:16,733 DEBUG [headers] << X-RateLimit-Limit: 1500
+[main] 10:45:16,733 DEBUG [headers] << X-RateLimit-Remaining: 1496
+[main] 10:45:16,733 DEBUG [headers] << Strict-Transport-Security: max-age=31536000; includeSubDomains
+[main] 10:45:16,733 DEBUG [DefaultHttpClient] Connection can be kept alive indefinitely
+[main] 10:45:16,734 DEBUG [RestAssuredHttpBuilder] Parsing response as: application/json
+[main] 10:45:16,734 DEBUG [RestAssuredHttpBuilder] Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+[main] 10:45:16,741 DEBUG [wire]  << "f[\r][\n]"
+[main] 10:45:16,743 DEBUG [wire]  << "{"status":true}"
+[main] 10:45:16,743 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:16,743 DEBUG [wire]  << "0[\r][\n]"
+[main] 10:45:16,743 DEBUG [wire]  << "[\r][\n]"
+[main] 10:45:16,743 DEBUG [BasicClientConnectionManager] Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@5a880dbe
+[main] 10:45:16,743 DEBUG [BasicClientConnectionManager] Connection can be kept alive indefinitely

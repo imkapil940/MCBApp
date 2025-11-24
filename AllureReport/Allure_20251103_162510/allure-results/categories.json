@@ -1,0 +1,45 @@
+[ 
+  {
+    "name": "Ignored tests", 
+    "matchedStatuses": ["skipped"] 
+  },
+  {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*digibank Alert.*" 
+  },
+  {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Digital token under maintenance.*" 
+  },
+   {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Deposits Not Found on.*" 
+  },
+   {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Account Name not showing.*" 
+  },
+  {
+    "name": "Application Load Issue",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Wait Duration Limit exceeded.*" 
+  },
+  {
+    "name": "Application CRASH ISSUE",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*Application Crash Issue.*" 
+  },
+  {
+    "name": "Data Issue",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*Data Issue.*" 
+  },
+  {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"]
+  }
+]

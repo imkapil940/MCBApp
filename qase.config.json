@@ -1,0 +1,30 @@
+{
+   "mode": "testops",
+   "fallback": "report",
+   "debug": true,
+   "report": {
+      "driver": "local",
+      "connection": {
+         "local": {
+            "path": "./build/qase-report",
+            "format": "json"
+         }
+      }
+   },
+   "testops": {
+      "api": {
+         "token": "44c84833422e2bcd0f0a09e09323bd3aa9a1734bd0d26e80e33188f58001babd",
+         "host": "qase.io"
+      },
+      "run": {
+         "title": "User Icon Navigation & Settings",
+         "description": "Description of the User Icon Navigation & Settings",
+         "complete": true
+      },
+      "defect": false,
+      "project": "FOMBPPCPOC",
+      "batch": {
+         "size": 100
+      }
+   }
+}

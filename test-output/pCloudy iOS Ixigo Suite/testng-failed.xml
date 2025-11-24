@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" thread-count="1" parallel="tests" name="Failed suite [pCloudy iOS Ixigo Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="com.crestech.listeners.AlterSuite"/>
+  </listeners>
+  <test thread-count="1" parallel="tests" name="APPLE_iPhone11ProMax_iOS_15.0.0_b99a8(failed)">
+    <parameter name="password" value="3672"/>
+    <parameter name="app_Name" value="Ixigo"/>
+    <parameter name="os" value="pCloudyIOS"/>
+    <parameter name="manafacturer" value="Apple"/>
+    <parameter name="min_Ver" value="8.1.0"/>
+    <parameter name="userName" value="7701833994"/>
+    <parameter name="max_Ver" value="15.0.0"/>
+    <parameter name="device" value="APPLE_iPhone11ProMax_iOS_15.0.0_b99a8"/>
+    <parameter name="version" value="15.0.0"/>
+    <parameter name="individual_ID" value="1"/>
+    <classes>
+      <class name="com.crestech.android.tests.Ixigo_IOSTest">
+        <methods>
+          <include name="flushReport"/>
+          <include name="LaunchingTrainsApp"/>
+          <include name="PreRequisiteScript"/>
+          <include name="beforeSuite"/>
+          <include name="startApp"/>
+          <include name="LogOutApp"/>
+          <include name="SRPWithoutLogin"/>
+          <include name="LaunchingHotelApp"/>
+          <include name="getResult"/>
+        </methods>
+      </class> <!-- com.crestech.android.tests.Ixigo_IOSTest -->
+    </classes>
+  </test> <!-- APPLE_iPhone11ProMax_iOS_15.0.0_b99a8(failed) -->
+</suite> <!-- Failed suite [pCloudy iOS Ixigo Suite] -->
