@@ -43,12 +43,14 @@
             <directory>src/main/resources</directory>
             <includes>
                 <include>**/*.properties</include>
+                <include>**/*.xml</include>
             </includes>
         </resource>
         <resource>
             <directory>src/test/resources</directory>
             <includes>
                 <include>**/*.properties</include>
+                <include>**/*.xml</include>
             </includes>
         </resource>
     </resources>
@@ -69,18 +71,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/main/resources/Test Runner File/MCBAndroid/McbAndroid</suiteXmlFile>
-                    </suiteXmlFiles>
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
-                    <argLine>
-                        -Djdk.net.URLClassPath.disableClassPathURLCheck=true 
-                        -Dfile.encoding=UTF-8 -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        --add-opens java.base/java.lang=ALL-UNNAMED
-                     </argLine>
-                </configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>src/main/resources/testrunner/MCBAndroidTestFile/McbAndroid.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
