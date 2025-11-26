@@ -97,15 +97,45 @@ public class QaseUploader {
 
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JSONObject json = new JSONObject(response.body().string());
-                String hash = json.getJSONObject("result").getString("hash");
-                System.out.println("✅ Uploaded ZIP. File Hash: " + hash);
-                return hash;
+                String responseBody = response.body().string();
+                JSONObject json = new JSONObject(responseBody);
+                
+                // Handle both cases: result as object or array
+                String hash = null;
+                if (json.has("result")) {
+                    Object resultObj = json.get("result");
+                    if (resultObj instanceof org.json.JSONObject) {
+                        hash = ((org.json.JSONObject) resultObj).getString("hash");
+                    } else if (resultObj instanceof org.json.JSONArray) {
+                        // If result is an array, get first element
+                        org.json.JSONArray resultArray = (org.json.JSONArray) resultObj;
+                        if (resultArray.length() > 0) {
+                            org.json.JSONObject firstResult = resultArray.getJSONObject(0);
+                            hash = firstResult.getString("hash");
+                        }
+                    }
+                }
+                
+                if (hash != null) {
+                    System.out.println("✅ Uploaded ZIP. File Hash: " + hash);
+                    return hash;
+                } else {
+                    System.err.println("❌ Could not extract hash from response: " + responseBody);
+                }
             } else {
+                String errorBody = response.body() != null ? response.body().string() : "No error body";
                 System.err.println("❌ Upload failed: " + response.code() + " - " + response.message());
+                System.err.println("Error response: " + errorBody);
             }
             response.close();
         } catch (IOException e) {
+            System.err.println("❌ IOException during attachment upload: " + e.getMessage());
+            e.printStackTrace();
+        } catch (org.json.JSONException e) {
+            System.err.println("❌ JSON parsing error during attachment upload: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("❌ Unexpected error during attachment upload: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -164,8 +194,15 @@ public class QaseUploader {
     // 🔹 Step 6: Smart upload handler (auto-uses latest run or creates new one)
     public static void uploadExtentReportToQase(String projectCode, String apiToken, String reportFolderPath, boolean useExistingRun) {
         try {
+            // Fix zip path: remove trailing slash if present and construct proper zip filename
+            String normalizedPath = reportFolderPath.trim();
+            if (normalizedPath.endsWith("/") || normalizedPath.endsWith("\\")) {
+                normalizedPath = normalizedPath.substring(0, normalizedPath.length() - 1);
+            }
+            String zipPath = normalizedPath + ".zip";
+            
             // Zip the Extent Report folder
-            String zipPath = ZipUtils.zipFolder(reportFolderPath, reportFolderPath + ".zip");
+            zipPath = ZipUtils.zipFolder(reportFolderPath, zipPath);
 
             // Choose runId source
             String runId;

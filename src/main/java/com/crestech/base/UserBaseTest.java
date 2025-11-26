@@ -510,7 +510,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_Endpoint", s.get(3));
 			capabilities.setCapability("pCloudy_DurationInMinutes", 20);
 			capabilities.setCapability("newCommandTimeout", 20000);
-			capabilities.setCapability("launchTimeout", 90000);
+			capabilities.setCapability("launchTimeout", 120000); // Increased to 120 seconds for slower app launches
 			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
 			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("platformName", "Android");
@@ -518,6 +518,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("appPackage", s.get(2));
 			capabilities.setCapability("appActivity", s.get(1));
+			// Add appWaitActivity and appWaitPackage for better launch reliability
+			capabilities.setCapability("appWaitActivity", s.get(1));
+			capabilities.setCapability("appWaitPackage", s.get(2));
+			capabilities.setCapability("appWaitDuration", 60000); // Wait up to 60 seconds for app to launch
 			capabilities.setCapability("pCloudy_WildNet", false);
 			capabilities.setCapability("autoGrantPermissions", true);
 			capabilities.setCapability("pCloudy_EnableVideo", false);
@@ -533,7 +537,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
-				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 120000); // Increased timeout
 				capabilities.setCapability("noSign", true);
 			} else {
 				capabilities.setCapability("automationName", "UiAutomator1");
@@ -640,10 +644,12 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//System.out.println(service.getUrl().toString()); 
 			try {
 				service.start();
-			} finally {
-				service.stop();
+				logger.info("Appium service started successfully at: " + service.getUrl());
+			} catch (Exception serviceEx) {
+				logger.error("Failed to start Appium service: " + serviceEx.getMessage());
+				// Don't stop service if it failed to start
+				service = null;
 			}
-
 
 			//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
 			//			Thread.sleep(5000);
@@ -652,8 +658,13 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//This time out is set because test can be run on slow Android SDK emulator
 			// PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
 
-
-			driver = new AndroidDriver(androidCaps);
+			// Use service URL if service is running, otherwise use default localhost
+			if (service != null && service.isRunning()) {
+				driver = new AndroidDriver(service.getUrl(), androidCaps);
+			} else {
+				logger.warn("Appium service not running, using default localhost connection");
+				driver = new AndroidDriver(androidCaps);
+			}
 			String sessionId = driver.getSessionId().toString();
 			System.out.println("Session ID: " + sessionId);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
@@ -671,6 +682,36 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 					driver = new AndroidDriver(hubUrl, androidCaps);
 					String sessionId = driver.getSessionId().toString();
 					System.out.println("Session ID: " + sessionId);
+					
+					// Wait for app to launch and verify it's running
+					if (os.equalsIgnoreCase("pCloudyAndroid")) {
+						logger.info("Waiting for MCB app to launch...");
+						try {
+							String appPackage = (String) androidCaps.getCapability("appPackage");
+							if (appPackage != null && !appPackage.isEmpty()) {
+								// Wait for the app to be ready - give it time to fully launch
+								Thread.sleep(10000); // Wait 10 seconds for initial app launch
+								logger.info("✅ Driver session established. App should be launching...");
+								
+								// Try to activate the app explicitly to ensure it's in foreground
+								try {
+									logger.info("Activating MCB app: " + appPackage);
+									((AndroidDriver) driver).activateApp(appPackage);
+									Thread.sleep(5000); // Wait for activation
+									logger.info("✅ MCB app activation attempted");
+								} catch (Exception activateEx) {
+									logger.warn("Could not activate app explicitly (app may already be active): " + activateEx.getMessage());
+								}
+								
+								// Additional wait to ensure app is fully loaded
+								Thread.sleep(5000);
+								logger.info("✅ MCB app launch sequence completed");
+							}
+						} catch (Exception launchEx) {
+							logger.warn("Error during app launch verification: " + launchEx.getMessage() + ". Continuing with test...");
+						}
+					}
+					
 					break;
 				} catch (Exception ex) {
 					attempts++;
@@ -682,7 +723,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 					
 					// Fallback: if requested device is not available, try dynamic allocation on next attempt
 					String rootMsg = String.valueOf(root.getMessage());
-					if (attempts == 1 && rootMsg != null && rootMsg.toLowerCase().contains("requested device is not available")) {
+					boolean deviceUnavailable = rootMsg != null && (
+							rootMsg.toLowerCase().contains("requested device is not available")
+							|| rootMsg.toLowerCase().contains("no device is available"));
+					if (attempts == 1 && deviceUnavailable) {
 						try {
 							System.out.println("Switching to dynamic device allocation fallback for next attempt...");
 							

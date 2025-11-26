@@ -146,9 +146,16 @@ public class McbAndroidPage extends CommonAppiumTest {
 
 	        // Step 1: Enter username and password
 	        log.info("Entering username and password...");
-	        loginpage.enterUsername(username);
-	        loginpage.clickContinue();
-	        loginpage.enterPassword(password);
+	        try {
+	            loginpage.enterUsername(username);
+	            Thread.sleep(2000); // Wait after username entry
+	            loginpage.clickContinue(); // This will wait internally for password screen
+	            loginpage.enterPassword(password);
+	            log.info("✅ Username and password entered successfully");
+	        } catch (Exception loginEx) {
+	            log.severe("Failed during username/password entry: " + loginEx.getMessage());
+	            throw loginEx;
+	        }
 
 //	        boolean loginSuccessful = false;
 //	        int retryCount = 0;

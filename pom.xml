@@ -125,7 +125,7 @@
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.0.9</version>
+            <version>5.1.1</version>
        </dependency>
        
        <dependency>
@@ -135,29 +135,17 @@
          <scope>test</scope>
       </dependency>
       
-       <dependency>
+      <dependency>
          <groupId>io.qase</groupId>
          <artifactId>qase-api</artifactId>
          <version>3.0.0</version>
         </dependency> 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-        </dependency>
     
         <dependency>
            <groupId>com.squareup.okhttp3</groupId>
            <artifactId>okhttp</artifactId>
            <version>4.9.3</version>
         </dependency>
-        
-        
-       <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>5.1.1</version>
-       </dependency> 
 
 
         <!-- Rest-Assured -->
@@ -207,13 +195,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.9</version>
-        </dependency>
-
-        <!-- ExtentReports -->
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>4.1.6</version>
         </dependency>
 
         <!-- Apache POI for Excel -->

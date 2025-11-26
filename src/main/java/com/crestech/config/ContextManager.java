@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.appium.java_client.AppiumDriver;
@@ -24,7 +24,7 @@ import io.appium.java_client.AppiumDriver;
 
 public class ContextManager {
 	
-	private static ExtentHtmlReporter htmlReporter;
+	private static ExtentSparkReporter htmlReporter;
 	private static ExtentReports extent;
 	private static ExtentTest extendLogger;
 	
@@ -38,7 +38,7 @@ public class ContextManager {
 			Date date = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 			//Set HTML reporting file location
-			htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/ExtentReport/ExtentReport_" + dateFormat.format(date) + ".html");
+			htmlReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/ExtentReport/ExtentReport_" + dateFormat.format(date) + ".html");
 			// Create an object of Extent Reports
 			extent = new ExtentReports();  
 			extent.attachReporter(htmlReporter);
@@ -48,7 +48,7 @@ public class ContextManager {
 			htmlReporter.config().setDocumentTitle("AutomationTesting On Crestechglobal"); 
 			htmlReporter.config().setTheme(Theme.DARK);   
 			htmlReporter.config().setReportName("Automation Report");
-			htmlReporter.config().setCSS(".r-img { width: 40%;}");
+			// Note: setCSS() is not available in ExtentSparkReporter (ExtentReports 5.x)
 		}
 	}
 

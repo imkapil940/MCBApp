@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.common.utilities.GestureUtils;
+import com.crestech.common.utilities.WaitUtils;
 
 public class loginPage extends CommonAppiumTest {
 
@@ -22,12 +23,14 @@ public class loginPage extends CommonAppiumTest {
 	private AppiumDriver driver;
     private HandleException obj_handleexception;
     private GestureUtils gestutils;
+    private WaitUtils waitUtils;
 
     public loginPage(AppiumDriver driver) throws Exception {
         super(driver);
         this.driver = driver;
         obj_handleexception = new HandleException(null, null);
         this.gestutils = new GestureUtils(driver);
+        this.waitUtils = new WaitUtils(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
@@ -86,20 +89,110 @@ public class loginPage extends CommonAppiumTest {
     // -------------------- Actions --------------------
 
     @Step("Enter username: {0}")
-    public void enterUsername(String user) {
-        username.click();
-        username.sendKeys(user);
+    public void enterUsername(String user) throws Exception {
+        try {
+            log.info("Waiting for username field to be visible...");
+            waitUtils.fluentWaitForElement(username);
+            log.info("Username field found, clicking and entering text...");
+            username.click();
+            Thread.sleep(1000); // Small delay after click
+            username.clear(); // Clear any existing text
+            username.sendKeys(user);
+            log.info("✅ Username entered successfully: " + user);
+            Thread.sleep(1000); // Small delay after entering text
+        } catch (Exception e) {
+            log.severe("Failed to enter username: " + e.getMessage());
+            throw new Exception("Could not enter username: " + e.getMessage(), e);
+        }
     }
 
     @Step("Enter password: {0}")
-    public void enterPassword(String pass) {
-        password.click();
-        password.sendKeys(pass);
+    public void enterPassword(String pass) throws Exception {
+        try {
+            log.info("Waiting for password field to be visible...");
+            
+            // Try to find password field with multiple strategies
+            WebElement passwordField = null;
+            int attempts = 0;
+            int maxAttempts = 10;
+            
+            while (passwordField == null && attempts < maxAttempts) {
+                try {
+                    // First try the PageFactory element
+                    waitUtils.fluentWaitForElement(password);
+                    passwordField = password;
+                    log.info("Password field found using PageFactory locator");
+                    break;
+                } catch (Exception e1) {
+                    attempts++;
+                    log.info("Attempt " + attempts + ": Password field not found yet, trying alternative locator...");
+                    
+                    // Try alternative locator directly
+                    try {
+                        passwordField = driver.findElement(By.xpath("//*[@text='Password' or contains(@text,'Password')]"));
+                        if (passwordField != null && passwordField.isDisplayed()) {
+                            log.info("Password field found using direct xpath locator");
+                            break;
+                        }
+                    } catch (Exception e2) {
+                        log.info("Alternative locator also failed, waiting and retrying...");
+                    }
+                    
+                    Thread.sleep(1000); // Wait 1 second before retrying
+                }
+            }
+            
+            if (passwordField == null) {
+                throw new Exception("Password field not found after " + maxAttempts + " attempts");
+            }
+            
+            log.info("Password field found, clicking and entering text...");
+            passwordField.click();
+            Thread.sleep(1000); // Small delay after click
+            passwordField.clear(); // Clear any existing text
+            passwordField.sendKeys(pass);
+            log.info("✅ Password entered successfully");
+            Thread.sleep(1000); // Small delay after entering text
+        } catch (Exception e) {
+            log.severe("Failed to enter password: " + e.getMessage());
+            throw new Exception("Could not enter password. Password field not found or not accessible: " + e.getMessage(), e);
+        }
     }
 
     @Step("Click Continue button")
-    public void clickContinue() {
-        continueButton.click();
+    public void clickContinue() throws Exception {
+        try {
+            log.info("Waiting for Continue button to be clickable...");
+            waitUtils.waitForElementToBeClickable(continueButton);
+            log.info("Continue button found, clicking...");
+            continueButton.click();
+            log.info("✅ Continue button clicked");
+            // Wait for password screen to appear after clicking Continue
+            log.info("Waiting for password screen to load (5 seconds)...");
+            Thread.sleep(5000); // Give app more time to navigate to password screen
+            
+            // Verify we're on password screen by waiting for password field to appear
+            int retryCount = 0;
+            while (retryCount < 10) {
+                try {
+                    WebElement pwdField = driver.findElement(By.xpath("//*[@text='Password' or contains(@text,'Password')]"));
+                    if (pwdField != null && pwdField.isDisplayed()) {
+                        log.info("✅ Password screen loaded successfully");
+                        break;
+                    }
+                } catch (Exception e) {
+                    retryCount++;
+                    if (retryCount >= 10) {
+                        log.warning("Password field not visible yet after Continue click, but proceeding anyway...");
+                    } else {
+                        Thread.sleep(1000); // Wait 1 second before retrying
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.severe("Failed to click Continue button: " + e.getMessage());
+            throw new Exception("Could not click Continue button: " + e.getMessage(), e);
+        }
     }
 
     @Step("Click Login button")

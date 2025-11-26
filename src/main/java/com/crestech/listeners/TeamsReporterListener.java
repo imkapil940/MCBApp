@@ -103,6 +103,14 @@ public class TeamsReporterListener implements ITestListener {
             System.out.println("❌ Error sending Teams message: " + e.getMessage());
         }
     }
+    private String detectExecutionEnv() {
+        String jenkinsHome = System.getenv("JENKINS_HOME");
+        if (jenkinsHome != null && !jenkinsHome.isBlank()) {
+            return "Jenkins";
+        }
+        return "Local";
+    }
+
 
     // 🚫 REMOVE ALL PER-TEST NOTIFICATIONS — ONLY UPDATE COUNTS
     @Override
@@ -141,10 +149,12 @@ public class TeamsReporterListener implements ITestListener {
         int totalTests = passedCount + failedCount + skippedCount;
 
         String execTime = formatDuration(duration);
+        String environment = detectExecutionEnv();
 
         String message =
                 "📊 *Automation Run Summary*\n" +
                 "-------------------------------------\n" +
+                "• Environment: 🌐 *" + environment + "*\n" +		
                 "• Test Suite: *" + testClassName + "*\n" +
                 "• Total Testcases: *" + totalTests + "*\n" +
                 "• Passed: ✅ *" + passedCount + "*\n" +

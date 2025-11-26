@@ -7,9 +7,23 @@ import java.util.zip.ZipOutputStream;
 public class ZipUtils {
 
     public static String zipFolder(String sourceFolder, String zipFilePath) throws IOException {
-        FileOutputStream fos = new FileOutputStream(zipFilePath);
+        // Ensure parent directory exists
+        File zipFile = new File(zipFilePath);
+        File parentDir = zipFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+        
+        FileOutputStream fos = new FileOutputStream(zipFile);
         ZipOutputStream zos = new ZipOutputStream(fos);
         File folder = new File(sourceFolder);
+        
+        if (!folder.exists()) {
+            zos.close();
+            fos.close();
+            throw new IOException("Source folder does not exist: " + sourceFolder);
+        }
+        
         zipFiles(folder, folder.getName(), zos);
         zos.close();
         fos.close();
